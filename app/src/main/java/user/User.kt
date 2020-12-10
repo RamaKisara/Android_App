@@ -1,12 +1,12 @@
 package user
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-@Entity
-class User (
 
-        @PrimaryKey(autoGenerate = true)
-        val id : Int = 0,
-        val nama: String,
+class User {
+    var id: Int? = null
+    var nama: String? = null
 
+    constructor(id: Int, nama: String){
+        this.id = id
+        this.nama = nama
 
-)
+    }
+}
