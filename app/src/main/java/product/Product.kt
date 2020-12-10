@@ -1,13 +1,15 @@
 package product
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-@Entity
-class Product (
 
-        @PrimaryKey(autoGenerate = true)
-        val id : Int = 0,
-        val nama: String,
-        val harga: String,
+class Product {
+    var id: Int? = null
+    var merk: String? = null
+    var tipe: String? = null
+    var harga: String? = null
 
-
-)
+    constructor(id: Int, merk: String, tipe: String, harga:String){
+        this.id = id
+        this.merk = merk
+        this.tipe = tipe
+        this.harga = harga
+    }
+}
