@@ -5,4 +5,4 @@
  
  Name: Alfian Bayu Samudra(18090109). Class: 5D"
  
-Sqllite
+ Alternatives: Room
