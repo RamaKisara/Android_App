@@ -5,38 +5,38 @@ import android.os.Bundle
 import android.view.View
 import com.example.crudapp.Database.AppRoomDB
 import com.example.crudapp.Database.Constant
-import com.example.crudapp.Database.User
+import com.example.crudapp.Database.Mainan
+import com.example.crudapp.R
 import kotlinx.android.synthetic.main.activity_edit_mainan.*
-import kotlinx.android.synthetic.main.activity_edit_user.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class EditUserActivity : AppCompatActivity() {
+class EditMainanActivity : AppCompatActivity() {
 
     val db by lazy { AppRoomDB(this) }
-    private var userId: Int = 0
+    private var mainanId: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_edit_user)
+        setContentView(R.layout.activity_edit_mainan)
         setupListener()
         setupView()
     }
 
     fun setupListener(){
-        btn_saveUser.setOnClickListener{
+        btn_saveMainan.setOnClickListener{
             CoroutineScope(Dispatchers.IO).launch {
-                db.userDao().addUser(
-                    User(0, txt_nama.text.toString(), txt_username.text.toString())
+                db.MainanDao().addMainan(
+                    Mainan(0, txt_merk.text.toString(), Integer.parseInt(txt_stok.text.toString()), Integer.parseInt(txt_harga.text.toString()) )
                 )
                 finish()
             }
         }
-        btn_updateUser.setOnClickListener{
+        btn_updateMainan.setOnClickListener{
             CoroutineScope(Dispatchers.IO).launch {
-                db.userDao().updateUser(
-                    User(userId, txt_nama.text.toString(), txt_username.text.toString())
+                db.MainanDao().updateMainan(
+                    Mainan(mainanId, txt_merk.text.toString(), Integer.parseInt(txt_stok.text.toString()), Integer.parseInt(txt_harga.text.toString()) )
                 )
                 finish()
             }
@@ -48,26 +48,27 @@ class EditUserActivity : AppCompatActivity() {
         val intentType = intent.getIntExtra("intent_type", 0)
         when (intentType) {
             Constant.TYPE_CREATE -> {
-                btn_updateUser.visibility = View.GONE
+                btn_updateMainan.visibility = View.GONE
             }
             Constant.TYPE_READ -> {
-                btn_saveUser.visibility = View.GONE
-                btn_updateUser.visibility = View.GONE
-                getUser()
+                btn_saveMainan.visibility = View.GONE
+                btn_updateMainan.visibility = View.GONE
+                getMainan()
             }
             Constant.TYPE_UPDATE -> {
-                btn_saveUser.visibility = View.GONE
-                getUser()
+                btn_saveMainan.visibility = View.GONE
+                getMainan()
             }
         }
     }
 
-    fun getUser() {
-        userId = intent.getIntExtra("intent_id", 0)
+    fun getMainan() {
+        mainanId = intent.getIntExtra("intent_id", 0)
         CoroutineScope(Dispatchers.IO).launch {
-            val users =  db.userDao().getUser( userId )[0]
-            txt_nama.setText( users.nama )
-            txt_username.setText( users.username )
+           val mainans =  db.MainanDao().getMainan( mainanId )[0]
+            txt_merk.setText( mainans.merk )
+            txt_stok.setText( mainans.stok.toString() )
+            txt_harga.setText( mainans.harga.toString() )
         }
     }
 

@@ -4,47 +4,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EditUserActivity">
+    android:padding="20dp"
+    tools:context=".EditMainanActivity">
 
     <EditText
-        android:id="@+id/txt_nama"
+        android:id="@+id/txt_merk"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:hint="Nama Lengkap"
+        android:hint="Merk"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/txt_username"
+        android:id="@+id/txt_stok"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:hint="Username"
+        android:hint="Stok"
+        android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_nama" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_merk" />
+
+    <EditText
+        android:id="@+id/txt_harga"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:hint="Harga"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_stok" />
 
     <Button
-        android:id="@+id/btn_saveUser"
+        android:id="@+id/btn_saveMainan"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="17dp"
         android:text="SAVE"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_username" />
-
+        app:layout_constraintTop_toBottomOf="@+id/txt_harga" />
 
     <Button
-        android:id="@+id/btn_updateUser"
+        android:id="@+id/btn_updateMainan"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="17dp"
         android:text="UPDATE"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_saveUser" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_saveMainan" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

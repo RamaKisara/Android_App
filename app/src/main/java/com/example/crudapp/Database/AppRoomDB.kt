@@ -1,4 +1,4 @@
-package com.example.uas_mp.Database
+package com.example.crudapp.Database
 
 import android.content.Context
 import androidx.room.Database
@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase
 
 abstract class AppRoomDB : RoomDatabase() {
 
-    abstract fun MainanDao(): Mainan
+    abstract fun MainanDao(): MainanDao
     abstract fun userDao(): UserDao
 
     companion object {

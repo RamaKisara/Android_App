@@ -1,4 +1,4 @@
-package com.example.uas_mp.Database
+package com.example.crudapp.Database
 
 class Constant {
     companion object {

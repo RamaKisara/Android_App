@@ -8,75 +8,80 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.crudapp.Database.AppRoomDB
 import com.example.crudapp.Database.Constant
-import com.example.crudapp.Database.User
-import kotlinx.android.synthetic.main.activity_user.*
+import com.example.crudapp.Database.Mainan
+import com.example.crudapp.R
+import kotlinx.android.synthetic.main.activity_mainan.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class UserActivity : AppCompatActivity() {
+class MainanActivity : AppCompatActivity() {
 
     val db by lazy { AppRoomDB(this) }
-    lateinit var userAdapter: UserAdapter
+    lateinit var mainanAdapter: MainanAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_user)
+        setContentView(R.layout.activity_mainan)
         setupListener()
         setupRecyclerView()
     }
 
     override fun onStart() {
         super.onStart()
-        loadUser()
+        loadMainan()
     }
 
-    fun loadUser() {
+    fun loadMainan(){
         CoroutineScope(Dispatchers.IO).launch {
-            val allUser = db.userDao().getAllUser()
-            Log.d("UserActivity", "dbResponse: $allUser")
+            val allMainan = db.MainanDao().getAllMainan()
+            Log.d("Mainanctivity", "dbResponse: $allMainan")
             withContext(Dispatchers.Main) {
-                userAdapter.setData(allUser)
+                mainanAdapter.setData(allMainan)
             }
         }
     }
 
     fun setupListener() {
-        btn_createUser.setOnClickListener {
-            intentEdit(0, Constant.TYPE_CREATE)
+        btn_createMainan.setOnClickListener {
+           intentEdit(0, Constant.TYPE_CREATE)
         }
     }
 
     fun setupRecyclerView() {
-        userAdapter = UserAdapter(arrayListOf(), object: UserAdapter.OnAdapterListener {
-            override fun onClick(user: User) {
-                intentEdit(user.id, Constant.TYPE_READ)
+        mainanAdapter = MainanAdapter(arrayListOf(), object: MainanAdapter.OnAdapterListener {
+            override fun onClick(mainan: Mainan) {
+                // read detail
+                intentEdit(mainan.id, Constant.TYPE_READ)
             }
-            override fun onDelete(user: User) {
-                deleteDialog(user)
+
+            override fun onDelete(mainan: Mainan) {
+                // delete data
+                deleteDialog(mainan)
             }
-            override fun onUpdate(user: User) {
+
+            override fun onUpdate(mainan: Mainan) {
                 // edit data
-                intentEdit(user.id, Constant.TYPE_UPDATE)
+                intentEdit(mainan.id, Constant.TYPE_UPDATE)
             }
 
         })
-        list_user.apply {
+        list_mainan.apply {
             layoutManager = LinearLayoutManager(applicationContext)
-            adapter = userAdapter
+            adapter = mainanAdapter
         }
     }
 
-    fun intentEdit(userId: Int, intentType: Int ) {
+    fun intentEdit(mainanId: Int, intentType: Int ) {
         startActivity(
-            Intent(applicationContext, EditUserActivity::class.java)
-                .putExtra("intent_id", userId)
+            Intent(applicationContext, EditMainanActivity::class.java)
+                .putExtra("intent_id", mainanId)
                 .putExtra("intent_type", intentType)
         )
     }
 
-    private fun deleteDialog(user: User) {
+    private fun deleteDialog(mainan: Mainan) {
         val alertDialog = AlertDialog.Builder(this)
         alertDialog.apply {
             setTitle("Konfirmasi")
@@ -87,8 +92,8 @@ class UserActivity : AppCompatActivity() {
             setPositiveButton("Hapus") { dialogInterface, i ->
                 dialogInterface.dismiss()
                 CoroutineScope(Dispatchers.IO).launch {
-                    db.userDao().deleteUser(user)
-                    loadUser()
+                    db.MainanDao().deleteMainan(mainan)
+                    loadMainan()
                 }
             }
         }

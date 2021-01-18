@@ -1,4 +1,4 @@
-package com.example.uas_mp
+package com.example.crudapp
 
 import org.junit.Test
 
